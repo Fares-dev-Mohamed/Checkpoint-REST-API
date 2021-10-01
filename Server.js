@@ -5,7 +5,7 @@ const User = require('./models/User')
 
 
 mongoose.
-connect('mongodb://localhost:27017/restapi')
+connect('mongodb://localhost:27017/data')
 .then (()=>console.log('DB connected'))
 .catch(err=>console.log(err))
 
@@ -34,24 +34,24 @@ app.post('/add',(req,res)=>{
     .catch((err=>console.log(err))) 
   })
 
-// :http://localhost:4001//edit/:_id
+// :http://localhost:4001/edit/:_id
 
 app.put('/edit/:_id',(req,res)=>{
-    const {_id}=req.params
-    const {name,email,phone}=req.body
-    User.findByIdAndUpdate ({_id},{$set:{name,
+    const {_id}=req.params._id
+    const {name,age, phone, email }=req.body
+    User.findByIdAndUpdate (_id,{$set:{name,
     age,
     phone,
     email}})
-    .save()
+    
     .then(users=>res.send(users))
     .catch((err=>console.log(err)))
   })
 
-  // :http://localhost:4001//delete/:_id
+  // :http://localhost:4001/delete/:_id
    app.delete('/delete/:_id',(req,res)=>{
-    const {_id}=req.params
-    User.findByIdAndRemove ({_id})
+    const {_id}=req.params._id
+    User.findByIdAndRemove (_id)
     .then(users=>res.send(users))
     .catch((err=>console.log(err)))
   })
